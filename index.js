@@ -34,6 +34,9 @@ AFRAME.registerComponent('webvr-controller', {
 	schema: { type: 'int' },
 
 	update: function(){
+		if(!this.buttons){
+			this.buttons = [];
+		}
 		var _this = this;
 		navigator.getVRDisplays().then(function(displays) {
 			if (displays.length > 0) {
@@ -55,8 +58,22 @@ AFRAME.registerComponent('webvr-controller', {
 				}
 			}
 
-			if(this.display && vrGamepads.length==2){
+			if(this.display && vrGamepads.length>this.attrValue){
 				var gamepad = vrGamepads[this.attrValue];
+				for (var j = 0; j < gamepad.buttons.length; ++j) {
+					if (gamepad.buttons[j].pressed) {
+						if(this.buttons[j]===false||this.buttons[j]===undefined){
+							this.buttons[j]=true;
+							this.el.emit("webvrcontrollerbutton"+j+"pressed");
+						}
+					}
+					else {
+						if(this.buttons[j]===true){
+							this.buttons[j]=false;
+							this.el.emit("webvrcontrollerbutton"+j+"released");
+						}
+					}
+				}
 				object3D.matrix = getPoseMatrix(gamepad.pose, this.display);
 				object3D.matrixAutoUpdate = false;
 			}
