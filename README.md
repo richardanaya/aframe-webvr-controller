@@ -1,6 +1,11 @@
 # aframe-webvr-controller
 A component for quickly attaching objects to webvr controllers in a-frame. This library works perfectly fine with HTC-Vive using webvr enabled versions of chrome. For more information, check out http://webvr.info
 
+Features
+* Position tracking
+* Simple button events
+* Vibration
+
 # Installing
 
 ```
@@ -53,3 +58,27 @@ Let's add some button events. There are several buttons your webvrcontroller may
 </body>
 </html>
 ```
+
+Now lets add some vibration.
+
+<html>
+<head>
+    <script src="../aframe.js"></script>
+    <script src="../../index.js"></script>
+</head>
+<body>
+<a-scene>
+    <a-box width=".1" height=".1" depth=".1"  color="#4CC3D9" webvr-controller="0">
+        <a-event name="webvrcontrollerbutton1pressed" color="#0000FF" webvr-controller-vibration="true"></a-event>
+        <a-event name="webvrcontrollerbutton1released" color="#FF0000" webvr-controller-vibration="false"></a-event>
+    </a-box>
+    <a-box width=".1" height=".1" depth=".1"  color="#4CC3D9" webvr-controller="1">
+        <a-event name="webvrcontrollerbutton1pressed" color="#0000FF" webvr-controller-vibration="true"></a-event>
+        <a-event name="webvrcontrollerbutton1released" color="#FF0000" webvr-controller-vibration="false"></a-event>
+    </a-box>
+    <a-camera id="player"></a-camera>
+</a-scene>
+</body>
+</html>
+
+You can also pass in a number in millseconds to represent a delay (the default delay is 100). Setting the property to false or 0 will turn off vibration.

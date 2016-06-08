@@ -60,6 +60,17 @@ AFRAME.registerComponent('webvr-controller', {
 
 			if(this.display && vrGamepads.length>this.attrValue){
 				var gamepad = vrGamepads[this.attrValue];
+
+				if ("vibrate" in gamepad) {
+					var vibration = this.el.getAttribute("webvr-controller-vibration");
+					if(vibration == "true"){
+						gamepad.vibrate(100)
+					}
+					if(vibration|0 > 0){
+						gamepad.vibrate(vibration)
+					}
+				}
+
 				for (var j = 0; j < gamepad.buttons.length; ++j) {
 					if (gamepad.buttons[j].pressed) {
 						if(this.buttons[j]===false||this.buttons[j]===undefined){
