@@ -2,7 +2,7 @@
 A-Frame ( http://aframe.io ) is a library made by Mozilla to make VR experiences in the web.
 This is a component for quickly attaching objects to WebVR controllers in a-frame. This library works perfectly fine with HTC-Vive using WebVR enabled versions of chrome and is the primary reason I made this library! For more information, check out http://webvr.info
 
-Check out demo here: http://richardanaya.github.io/aframe-webvr-controller/examples/02_vibration.html
+Check out demo here: http://richardanaya.github.io/aframe-webvr-controller/examples/02_vibration/index.html
 
 Features
 * Position tracking
