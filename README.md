@@ -10,6 +10,9 @@ Features
 * Vibration
 * Events on triggering while interesected
 
+Notes
+* You may have to build the latest master branch of aframe to get it to recognize your HTC Vive can go into VR mode ( or just copy mine from examples )
+
 # Installing
 
 ```
