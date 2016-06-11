@@ -1,6 +1,6 @@
 {
   "name": "aframe-webvr-controller",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A component for quickly creating objects that track to a webvr controller",
   "main": "index.js",
   "scripts": {
