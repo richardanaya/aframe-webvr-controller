@@ -8,6 +8,7 @@ Features
 * Position tracking
 * Simple button events
 * Vibration
+* Events on triggering while interesected
 
 # Installing
 
@@ -15,10 +16,10 @@ Features
 npm install aframe-webvr-controller
 ```
 
-# Usage 
+# Usage
 Using this component is simple. Pass in the index of the controller you wish to use.  Please make sure you have an a-camera at position <0,0,0>, otherwise strange offsetting of the controllers may occur!
 
-```html 
+```html
 <html>
 <head>
     <script src="../aframe.js"></script>
@@ -85,3 +86,30 @@ Now lets add some vibration.
 </html>
 
 You can also pass in a number in millseconds to represent a delay (the default delay is 100). Setting the property to false or 0 will turn off vibration.
+
+Now lets add some events for when a user presses a button while they are intersecting a component
+
+<a-scene>
+
+    <a-box id="table" position="0 0 0" width="2" depth="2" height=".1" color="#333333" roughness="0.8">
+      <!--controller 0 button 1 will change color-->
+      <a-event name="raycaster-intersected-webvrcontroller0button1pressed" color="#FFC65D"></a-event>
+      <a-event name="raycaster-intersected-webvrcontroller0button1released" color="#F16745"></a-event>
+    </a-box>
+    <!--this should not get hit from the top-->
+    <a-box id="table2" position="0 -2 0" width="2" depth="2" height=".1" color="#333333" roughness="0.8">
+      <!--controller 0 button 1 will change color-->
+      <a-event name="raycaster-intersected-webvrcontroller0button1pressed" color="#FFC65D"></a-event>
+      <a-event name="raycaster-intersected-webvrcontroller0button1released" color="#F16745"></a-event>
+    </a-box>
+
+  <a-box width=".1" height=".1" depth=".1"  color="#4CC3D9" webvr-controller="0" raycaster laser>
+      <a-event name="webvrcontrollerbutton1pressed" color="#0000FF" webvr-controller-vibration="true"></a-event>
+      <a-event name="webvrcontrollerbutton1released" color="#FF0000" webvr-controller-vibration="false"></a-event>
+  </a-box>
+  <a-box width=".1" height=".1" depth=".1"  color="#4CC3D9" webvr-controller="1" raycaster laser>
+      <a-event name="webvrcontrollerbutton1pressed" color="#0000FF" webvr-controller-vibration="true"></a-event>
+      <a-event name="webvrcontrollerbutton1released" color="#FF0000" webvr-controller-vibration="false"></a-event>
+  </a-box>
+  <a-camera id="player"></a-camera>
+</a-scene>

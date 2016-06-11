@@ -33,6 +33,44 @@ function getPoseMatrix (pose, display) {
 AFRAME.registerComponent('webvr-controller', {
 	schema: { type: 'int' },
 
+  watchIntersectionForButton: function(button){
+    var _this = this;
+    function handleRayPress(){
+			if(!this.components.raycaster){return;}
+      var ints = this.components.raycaster.intersectedEls;
+      for(var i = 0 ; i < ints.length; i++){
+        if(ints[i]!=_this.el){
+          ints[i].emit("raycaster-intersected-webvrcontroller"+_this.attrValue+"button"+button+"pressed",{intersection:_this.intersections[i],intersections:_this.intersections})
+					console.log("raycaster-intersected-webvrcontroller"+_this.attrValue+"button"+button+"pressed")
+          return;
+        }
+      }
+    }
+    function handleRayReleased(){
+			if(!this.components.raycaster){return;}
+      var ints = this.components.raycaster.intersectedEls;
+      for(var i = 0 ; i < ints.length; i++){
+        if(ints[i]!=_this.el){
+          ints[i].emit("raycaster-intersected-webvrcontroller"+_this.attrValue+"button"+button+"released",{intersection:_this.intersections[i],intersections:_this.intersections})
+					console.log("raycaster-intersected-webvrcontroller"+_this.attrValue+"button"+button+"released")
+          return;
+        }
+      }
+    }
+    _this.el.addEventListener("webvrcontrollerbutton"+button+"pressed",handleRayPress)
+    _this.el.addEventListener("webvrcontrollerbutton"+button+"released",handleRayReleased)
+  },
+
+  init: function(){
+    var _this = this;
+    _this.intersections = [];
+    _this.intersectionEvents = [];
+    function handleIntersections(e){
+      _this.intersections = e.detail.intersections;
+    }
+    _this.el.addEventListener("raycaster-intersection",handleIntersections);
+  },
+
 	update: function(){
 		if(!this.buttons){
 			this.buttons = [];
@@ -72,6 +110,10 @@ AFRAME.registerComponent('webvr-controller', {
 				}
 
 				for (var j = 0; j < gamepad.buttons.length; ++j) {
+          if(this.intersectionEvents[j]!==true){
+            this.watchIntersectionForButton(j);
+            this.intersectionEvents[j] = true;
+          }
 					if (gamepad.buttons[j].pressed) {
 						if(this.buttons[j]===false||this.buttons[j]===undefined){
 							this.buttons[j]=true;
