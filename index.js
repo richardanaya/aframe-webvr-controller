@@ -43,9 +43,8 @@
 				if(!this.components.raycaster){return;}
 	      var ints = this.components.raycaster.intersectedEls;
 	      for(var i = 0 ; i < ints.length; i++){
-	        if(ints[i]!=_this.el){
+	        if(ints[i]!=_this.el && _this.intersections[i].face != null){
 	          ints[i].emit("raycaster-intersected-webvrcontroller"+_this.attrValue+"button"+button+"pressed",{intersection:_this.intersections[i],intersections:_this.intersections})
-						console.log("raycaster-intersected-webvrcontroller"+_this.attrValue+"button"+button+"pressed")
 	          return;
 	        }
 	      }
@@ -54,9 +53,8 @@
 				if(!this.components.raycaster){return;}
 	      var ints = this.components.raycaster.intersectedEls;
 	      for(var i = 0 ; i < ints.length; i++){
-	        if(ints[i]!=_this.el){
+	        if(ints[i]!=_this.el && _this.intersections[i].face != null){
 	          ints[i].emit("raycaster-intersected-webvrcontroller"+_this.attrValue+"button"+button+"released",{intersection:_this.intersections[i],intersections:_this.intersections})
-						console.log("raycaster-intersected-webvrcontroller"+_this.attrValue+"button"+button+"released")
 	          return;
 	        }
 	      }
